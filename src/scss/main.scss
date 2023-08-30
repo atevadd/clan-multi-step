@@ -28,6 +28,15 @@ body {
   @include sm {
     background-color: #eff5ff;
   }
+  @include md {
+    background-color: #eff5ff;
+  }
+  @include lg {
+    background-color: $color-white;
+  }
+  @include xl {
+    background-color: $color-white;
+  }
 }
 /*
   5. Improve media defaults

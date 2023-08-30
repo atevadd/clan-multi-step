@@ -56,6 +56,16 @@ const router = useRouter();
 .form {
   width: 50%;
 
+  @include sm {
+    width: 90%;
+  }
+  @include md {
+    width: 80%;
+  }
+  @include lg {
+    width: 50%;
+  }
+
   &__add-form {
     width: 100%;
     margin-top: 2rem;
@@ -83,6 +93,10 @@ const router = useRouter();
         margin-inline: 1rem 2rem;
         opacity: 0.4;
 
+        @include sm {
+          margin-inline: 0 1rem;
+        }
+
         &:checked {
           opacity: 1;
         }
@@ -97,11 +111,19 @@ const router = useRouter();
         p {
           color: $color-cool-gray;
           font-size: 0.875rem;
+
+          @include sm {
+            font-size: 0.75rem;
+          }
         }
       }
       span {
         font-size: 0.875rem;
         color: $color-purplish-blue;
+
+        @include sm {
+          font-size: 0.75rem;
+        }
       }
     }
   }

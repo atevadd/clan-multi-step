@@ -12,8 +12,10 @@
             <label for="arcade">
               <img src="@/assets/images/icon-arcade.svg" alt="arcade icon" />
 
-              <h3>Arcade</h3>
-              <p>&dollar;9/mo</p>
+              <div>
+                <h3>Arcade</h3>
+                <p>&dollar;9/mo</p>
+              </div>
             </label>
           </div>
           <div class="input">
@@ -21,8 +23,10 @@
             <label for="advance">
               <img src="@/assets/images/icon-advanced.svg" alt="arcade icon" />
 
-              <h3>Advance</h3>
-              <p>&dollar;12/mo</p>
+              <div>
+                <h3>Advance</h3>
+                <p>&dollar;12/mo</p>
+              </div>
             </label>
           </div>
           <div class="input">
@@ -30,8 +34,10 @@
             <label for="pro">
               <img src="@/assets/images/icon-pro.svg" alt="arcade icon" />
 
-              <h3>Pro</h3>
-              <p>&dollar;15/mo</p>
+              <div>
+                <h3>Pro</h3>
+                <p>&dollar;15/mo</p>
+              </div>
             </label>
           </div>
         </div>
@@ -66,7 +72,16 @@ const router = useRouter();
 <style lang="scss" scoped>
 .form {
   width: 50%;
-  // border: 1px solid red;
+
+  @include sm {
+    width: 90%;
+  }
+  @include md {
+    width: 80%;
+  }
+  @include lg {
+    width: 50%;
+  }
 
   &__plan {
     width: 100%;
@@ -77,7 +92,29 @@ const router = useRouter();
       justify-content: space-between;
       margin-block: 2rem;
 
+      @include sm {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      @include md {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      @include lg {
+        flex-direction: row;
+        gap: 1rem;
+      }
+
       .input {
+        @include sm {
+          width: 100%;
+        }
+        @include md {
+          width: 100%;
+        }
+        @include sm {
+          width: 100%;
+        }
         input:checked ~ label {
           border-color: $color-purplish-blue;
           background-color: #f8f9ff;
@@ -85,22 +122,44 @@ const router = useRouter();
 
         label {
           display: flex;
-          flex-direction: column;
+
           cursor: pointer;
           width: 100%;
           height: 100%;
-          width: 138px;
-          height: 160px;
-          flex-shrink: 0;
           border-radius: 8px;
           border: 1px solid $color-light-gray;
           background: $color-white;
           padding: 1rem;
+
+          @include sm {
+            width: 100%;
+            flex-direction: row;
+            height: auto;
+            gap: 1rem;
+            align-items: center;
+          }
+          @include md {
+            width: 100%;
+            flex-direction: row;
+            height: auto;
+            gap: 1rem;
+            align-items: center;
+          }
+          @include lg {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 138px;
+            height: 160px;
+            flex-shrink: 0;
+          }
         }
 
         img {
           width: 40px;
           height: 40px;
+        }
+        div {
+          margin-top: auto;
         }
         h3 {
           margin-top: auto;
@@ -165,7 +224,7 @@ const router = useRouter();
 .toggle {
   display: inline-block;
   position: relative;
-  width: 50px;
+  width: 43px;
   height: 23px;
   background-color: $color-marine-blue;
   border-radius: 14px;
@@ -190,6 +249,6 @@ const router = useRouter();
 }
 
 .toggle-input:checked + .toggle-slider {
-  transform: translateX(28px);
+  transform: translateX(20px);
 }
 </style>

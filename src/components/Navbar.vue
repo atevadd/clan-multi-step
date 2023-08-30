@@ -25,19 +25,13 @@ const stepLinks = ref([
 
 <style lang="scss" scoped>
 .navbar {
-  width: 100%;
-  height: 100%;
-  background-image: url("@/assets/images/bg-sidebar-desktop.svg");
+  overflow: hidden;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
 
   @include sm {
+    width: 100%;
     background-image: url("@/assets/images/bg-sidebar-mobile.svg");
     background-position: 50%;
     border-radius: 0;
@@ -45,6 +39,27 @@ const stepLinks = ref([
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
+  }
+  @include md {
+    background-image: url("@/assets/images/bg-sidebar-mobile.svg");
+    background-position: 50%;
+    border-radius: 0;
+    height: 200px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  @include lg {
+    width: 100%;
+    height: 100%;
+    background-image: url("@/assets/images/bg-sidebar-desktop.svg");
+    background-repeat: no-repeat;
+
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    // align-items: center;
   }
 
   ul {
@@ -54,8 +69,22 @@ const stepLinks = ref([
     @include sm {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 1.2rem;
       margin-top: 3rem;
+    }
+    @include md {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    @include lg {
+      display: block;
+      margin-block: 2rem 0;
+      margin-inline: 3rem 0;
     }
 
     li {
@@ -93,6 +122,12 @@ const stepLinks = ref([
 
     @include sm {
       display: none;
+    }
+    @include md {
+      display: none;
+    }
+    @include lg {
+      display: flex;
     }
 
     span:first-child {

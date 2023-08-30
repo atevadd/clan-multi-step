@@ -50,7 +50,15 @@ const router = useRouter();
 
 <style lang="scss" scoped>
 .form {
-  width: 50%;
+  @include sm {
+    width: 90%;
+  }
+  @include md {
+    width: 80%;
+  }
+  @include lg {
+    width: 50%;
+  }
   &__summary-group {
     margin-block: 2rem;
     background-color: #f8f9ff;

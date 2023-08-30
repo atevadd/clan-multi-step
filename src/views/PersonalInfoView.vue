@@ -75,15 +75,33 @@
 <style lang="scss">
 .form {
   width: 50%;
-  // border: 1px solid red;
 
   @include sm {
     border-radius: 10px;
-    background: var(--white, #fff);
+    background: $color-white;
     box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.1);
     width: 90%;
     padding: 1.5rem;
     margin-top: -5rem;
+    margin-bottom: 4rem;
+  }
+  @include md {
+    border-radius: 10px;
+    background: $color-white;
+    box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    padding: 1.5rem;
+    margin-top: -30rem;
+    margin-bottom: 4rem;
+  }
+  @include lg {
+    border-radius: 10px;
+    background: $color-white;
+    box-shadow: none;
+    width: 50%;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   &__personal {
