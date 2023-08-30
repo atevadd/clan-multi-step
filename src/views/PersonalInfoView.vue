@@ -77,6 +77,15 @@
   width: 50%;
   // border: 1px solid red;
 
+  @include sm {
+    border-radius: 10px;
+    background: var(--white, #fff);
+    box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    padding: 1.5rem;
+    margin-top: -5rem;
+  }
+
   &__personal {
     header {
       margin-bottom: 1.5rem;

@@ -28,9 +28,9 @@ const router = createRouter({
       component: () => import("../views/AddonView.vue"),
     },
     {
-      path: "/onboarding/select-plan",
+      path: "/onboarding/summary",
       name: "summary",
-      component: () => import("../views/SelectPlanView.vue"),
+      component: () => import("../views/SummaryView.vue"),
     },
   ],
 });

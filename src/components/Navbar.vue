@@ -37,9 +37,26 @@ const stepLinks = ref([
   align-items: center;
   overflow: hidden;
 
+  @include sm {
+    background-image: url("@/assets/images/bg-sidebar-mobile.svg");
+    background-position: 50%;
+    border-radius: 0;
+    height: 200px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
   ul {
     list-style: none;
     margin-block: 2rem 0;
+
+    @include sm {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
 
     li {
       margin-bottom: 2rem;
@@ -73,6 +90,10 @@ const stepLinks = ref([
   &__link-info {
     display: flex;
     flex-direction: column;
+
+    @include sm {
+      display: none;
+    }
 
     span:first-child {
       text-transform: uppercase;
