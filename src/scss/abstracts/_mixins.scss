@@ -1,0 +1,29 @@
+// ================ BREAKPOINTS ======================
+
+/* Extra small devices (phones, 600px and down) */
+@mixin sm {
+  @media only screen and (max-width: 600px) {
+    @content;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@mixin md {
+  @media (min-width: 601px) {
+    @content;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@mixin lg {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@mixin xl {
+  @media (min-width: 1400px) {
+    @content;
+  }
+}
