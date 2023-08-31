@@ -1,39 +1,10 @@
-@keyframes rotation {
+@keyframes slide-from-right {
   0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes dropdown-slide {
-  0% {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes menu-slide-from-left {
-  0% {
-    transform: translateX(-70%);
-    visibility: hidden;
-  }
-  100% {
-    transform: translateY(0%);
-    visibility: visible;
-  }
-}
-
-@keyframes menu-appear {
-  0% {
+    transform: translateX(50%);
     opacity: 0;
   }
   100% {
+    transform: translateX(0);
     opacity: 1;
   }
 }

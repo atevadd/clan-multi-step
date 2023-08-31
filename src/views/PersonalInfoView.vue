@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+import { useFormStore } from "../stores/form";
+
+const formStore = useFormStore();
+const { personalInfo } = storeToRefs(formStore);
+</script>
 
 <template>
   <div class="form">
@@ -6,16 +11,23 @@
       <Header
         heading="Personal Info"
         subtitle="Please provide your name, email address, and phone number" />
-      <form>
+      <FormKit
+        id="personalinfo"
+        type="form"
+        submit-label="Next Step"
+        #default="{ value }"
+        @submit="formStore.submitPersonalInfo">
         <FormKit
           type="text"
           id="name"
+          name="name"
           label="Name"
           validation="required"
           placeholder="e.g. Stephen King" />
         <FormKit
           type="email"
           id="email"
+          name="email"
           label="Email Address"
           validation="email|required"
           validation-messages="Enter a valid email"
@@ -23,21 +35,29 @@
         <FormKit
           type="tel"
           id="phone"
+          name="phone"
           label="Phone"
           validation="required"
           placeholder="e.g. +1 234 567 890" />
-        <div class="form__cta">
+        <!-- <div class="form__cta">
           <button>Next Step</button>
-        </div>
-      </form>
+        </div> -->
+      </FormKit>
     </div>
   </div>
 </template>
 
 <style lang="scss">
+.formkit-form > .formkit-messages {
+  display: none;
+}
 .formkit-outer {
   position: relative;
   margin-bottom: 2rem;
+
+  &:has(.formkit-messages) .formkit-inner > input {
+    border: 1px solid $color-strawberry-red;
+  }
 }
 .formkit-label {
   color: $color-marine-blue;
@@ -69,6 +89,25 @@
   li {
     color: $color-strawberry-red;
     font-size: 0.8rem;
+  }
+}
+.formkit-actions {
+  margin-top: 5rem;
+
+  .formkit-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    button {
+      padding: 0.7rem 1.5rem;
+      background-color: $color-marine-blue;
+      color: $color-white;
+      font-weight: 500;
+      border-radius: 8px;
+      outline: none;
+      border: none;
+    }
   }
 }
 </style>

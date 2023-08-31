@@ -24,6 +24,7 @@ body {
   scroll-behavior: smooth;
   font-family: $font-ubuntu;
   accent-color: $color-purplish-blue;
+  overflow-x: hidden;
 
   @include sm {
     background-color: #eff5ff;
@@ -83,4 +84,65 @@ button {
 }
 a {
   text-decoration: none;
+}
+
+.error {
+  background-color: lighten($color: $color-strawberry-red, $amount: 10);
+  color: white;
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.5rem 3rem;
+  border-radius: 8px;
+  animation: slide-from-right 300ms ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @include sm {
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: 0;
+    padding-block: 1rem;
+    border-radius: 0;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+  }
+
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+.form {
+  width: 50%;
+  @include sm {
+    border-radius: 10px;
+    background: $color-white;
+    box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    padding: 1.5rem;
+    margin-top: -5rem;
+    margin-bottom: 4rem;
+  }
+  @include md {
+    border-radius: 10px;
+    background: $color-white;
+    box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    padding: 1.5rem;
+    margin-top: -30rem;
+    margin-bottom: 4rem;
+  }
+  @include lg {
+    border-radius: 10px;
+    background: $color-white;
+    box-shadow: none;
+    width: 50%;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }

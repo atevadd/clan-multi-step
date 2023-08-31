@@ -1,5 +1,5 @@
 <template>
-  <div class="form">
+  <div class="form" v-if="!isCompleted">
     <div class="form__summary">
       <Header
         heading="Finshing up"
@@ -8,20 +8,35 @@
       <div class="form__summary-group">
         <div class="summary__plan">
           <div class="left">
-            <h3>Arcade (Monthly)</h3>
-            <router-link to="/">Change</router-link>
+            <h3>
+              {{ selectedPlan.plan.name
+              }}{{ selectedPlan.duration ? "(Yearly)" : "(Monthly)" }}
+            </h3>
+            <router-link :to="{ name: 'plan' }">Change</router-link>
           </div>
-          <span>$9/mo</span>
+          <span
+            >${{
+              selectedPlan.duration
+                ? selectedPlan.plan.price[1]
+                : selectedPlan.plan.price[0]
+            }}/mo</span
+          >
         </div>
         <hr />
         <div class="summary__add-on">
-          <p><span>online Service</span><span>+$1/mo</span></p>
-          <p><span>Larger Storage</span><span>+$2/mo</span></p>
+          <p v-for="add in addOnsList">
+            <span>{{ add.title }}</span
+            ><span>+${{ add.price }}/mo</span>
+          </p>
         </div>
       </div>
       <div class="form__summary-total">
         <p>
-          <span>Total(per month)</span>
+          <span
+            >Total{{
+              selectedPlan.duration ? "(Per Year)" : "(Per Month)"
+            }}</span
+          >
           <span>+$12/mo</span>
         </p>
       </div>
@@ -29,11 +44,11 @@
 
     <div class="form__cta">
       <button class="btn" @click="router.back()">Go Back</button>
-      <button class="btn primary">Confirm</button>
+      <button class="btn primary" @click="formStore.finishForm">Confirm</button>
     </div>
   </div>
 
-  <!-- <div class="message">
+  <div class="message" v-else>
     <img src="@/assets/images/icon-thank-you.svg" alt="check icon" />
     <h2>Thank you</h2>
     <p>
@@ -41,10 +56,14 @@
       platform. If you ever need support, please feel free to email us at
       support@loremgaming.com.
     </p>
-  </div> -->
+  </div>
 </template>
 
 <script setup>
+import { useFormStore } from "../stores/form";
+
+const formStore = useFormStore();
+const { addOnsList, isCompleted, selectedPlan } = storeToRefs(formStore);
 const router = useRouter();
 </script>
 
@@ -160,6 +179,9 @@ const router = useRouter();
 }
 
 .message {
+  @include sm {
+    min-height: 50dvh;
+  }
   img {
     margin-inline: auto;
   }
@@ -171,9 +193,13 @@ const router = useRouter();
   }
   p {
     text-align: center;
-    width: 70%;
+    width: 50%;
     color: $color-cool-gray;
     margin-inline: auto;
+
+    @include sm {
+      width: 90%;
+    }
   }
 }
 </style>

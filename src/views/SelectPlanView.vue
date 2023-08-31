@@ -5,58 +5,52 @@
         heading="Select Plan"
         subtitle="You have the option of monthly or yearly billing." />
 
-      <form class="form__plans">
+      <form class="form__plans" @submit.prevent="formStore.submitPlan">
         <div class="form__plan-group">
-          <div class="input">
-            <input type="radio" id="arcade" name="plan" hidden />
-            <label for="arcade">
-              <img src="@/assets/images/icon-arcade.svg" alt="arcade icon" />
+          <div class="input" v-for="plan in plans">
+            <input
+              type="radio"
+              :id="plan.name"
+              name="plan"
+              :value="plan"
+              v-model="selectedPlan.plan"
+              hidden />
+            <label :for="plan.name">
+              <img :src="plan.imgurl" :alt="`${plan.name} icon`" />
 
               <div>
-                <h3>Arcade</h3>
-                <p>&dollar;9/mo</p>
-              </div>
-            </label>
-          </div>
-          <div class="input">
-            <input type="radio" id="advance" name="plan" hidden />
-            <label for="advance">
-              <img src="@/assets/images/icon-advanced.svg" alt="arcade icon" />
-
-              <div>
-                <h3>Advance</h3>
-                <p>&dollar;12/mo</p>
-              </div>
-            </label>
-          </div>
-          <div class="input">
-            <input type="radio" id="pro" name="plan" hidden />
-            <label for="pro">
-              <img src="@/assets/images/icon-pro.svg" alt="arcade icon" />
-
-              <div>
-                <h3>Pro</h3>
-                <p>&dollar;15/mo</p>
+                <h3>{{ plan.name }}</h3>
+                <p>
+                  &dollar;{{
+                    !selectedPlan.duration ? plan.price[0] : plan.price[1]
+                  }}/{{ !selectedPlan.duration ? "mo" : "yr" }}
+                </p>
+                <span v-show="selectedPlan.duration">2 months free</span>
               </div>
             </label>
           </div>
         </div>
 
         <div class="form__date">
-          <span :class="{ active: !isActive }">Monthly</span>
+          <span :class="{ active: !selectedPlan.duration }">Monthly</span>
           <label class="toggle" :class="{ active: isActive }">
             <input
               type="checkbox"
-              v-model="isActive"
+              v-model="selectedPlan.duration"
               class="toggle-input"
               hidden />
             <span class="toggle-slider"></span>
           </label>
-          <span :class="{ active: isActive }">Yearly</span>
+          <span :class="{ active: selectedPlan.duration }">Yearly</span>
         </div>
+        <span class="error" v-show="planError"
+          ><i class="uil uil-exclamation-octagon"></i> {{ planError }}</span
+        >
 
         <div class="form__cta">
-          <button class="btn" @click="router.back()">Go Back</button>
+          <button class="btn" type="button" @click="router.back()">
+            Go Back
+          </button>
           <button class="btn primary">Next Step</button>
         </div>
       </form>
@@ -65,8 +59,33 @@
 </template>
 
 <script setup>
+import { useFormStore } from "../stores/form";
+import arcadeImg from "../assets/images/icon-arcade.svg";
+import advanceImg from "../assets/images/icon-advanced.svg";
+import proImg from "../assets/images/icon-pro.svg";
+
+const formStore = useFormStore();
+const { selectedPlan, planError } = storeToRefs(formStore);
 const isActive = ref(false);
 const router = useRouter();
+
+const plans = ref([
+  {
+    name: "Arcade",
+    price: [9, 90],
+    imgurl: arcadeImg,
+  },
+  {
+    name: "Advance",
+    price: [12, 120],
+    imgurl: advanceImg,
+  },
+  {
+    name: "Pro",
+    price: [15, 150],
+    imgurl: proImg,
+  },
+]);
 </script>
 
 <style lang="scss" scoped>
@@ -122,7 +141,6 @@ const router = useRouter();
 
         label {
           display: flex;
-
           cursor: pointer;
           width: 100%;
           height: 100%;
@@ -130,6 +148,10 @@ const router = useRouter();
           border: 1px solid $color-light-gray;
           background: $color-white;
           padding: 1rem;
+
+          &:hover {
+            border-color: $color-purplish-blue;
+          }
 
           @include sm {
             width: 100%;
@@ -170,6 +192,10 @@ const router = useRouter();
         p {
           font-size: 0.875rem;
           color: $color-cool-gray;
+        }
+        span {
+          color: $color-marine-blue;
+          font-size: 0.8rem;
         }
       }
     }

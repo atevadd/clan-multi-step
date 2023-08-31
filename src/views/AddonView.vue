@@ -5,13 +5,18 @@
         heading="Pick add-ons"
         subtitle="Add-ons help enhance your gaming experience." />
 
-      <form class="form__add-form">
+      <form class="form__add-form" @submit.prevent="formStore.submitAddons">
         <div class="add-ons">
           <label
             :for="`add-on-${index}`"
             v-for="(offer, index) in addOns"
             class="add-on">
-            <input type="checkbox" name="adds" :id="`add-on-${index}`" />
+            <input
+              type="checkbox"
+              name="adds"
+              :id="`add-on-${index}`"
+              :value="offer"
+              v-model="addOnsList" />
             <div class="label-text">
               <h4>{{ offer.title }}</h4>
               <p>{{ offer.sub }}</p>
@@ -20,9 +25,15 @@
           </label>
         </div>
 
+        <span class="error" v-show="addsError"
+          ><i class="uil uil-exclamation-octagon"></i> {{ addsError }}</span
+        >
+
         <!-- buttons -->
         <div class="form__cta">
-          <button class="btn" @click="router.back()">Go Back</button>
+          <button class="btn" type="button" @click="router.back()">
+            Go Back
+          </button>
           <button class="btn primary">Next Step</button>
         </div>
       </form>
@@ -31,6 +42,10 @@
 </template>
 
 <script setup>
+import { useFormStore } from "../stores/form";
+
+const formStore = useFormStore();
+const { addOnsList, addsError } = storeToRefs(formStore);
 const addOns = ref([
   {
     title: "Online service",
@@ -82,6 +97,7 @@ const router = useRouter();
       border: 1px solid $color-light-gray;
       padding: 1rem;
       border-radius: 8px;
+      cursor: pointer;
 
       &:has(input:checked) {
         border-color: $color-purplish-blue;
