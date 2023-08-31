@@ -14,6 +14,11 @@ const { personalInfo } = storeToRefs(formStore);
       <FormKit
         id="personalinfo"
         type="form"
+        :value="{
+          name: personalInfo.name,
+          email: personalInfo.email,
+          phone: personalInfo.phone,
+        }"
         submit-label="Next Step"
         #default="{ value }"
         @submit="formStore.submitPersonalInfo">
