@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, useRouter } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import { useFormStore } from "../stores/form";
+import { storeToRefs } from "pinia";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,11 @@ const router = createRouter({
       path: "/onboarding/select-plan",
       name: "plan",
       component: () => import("../views/SelectPlanView.vue"),
+      beforeEnter: (to, from) => {
+        const form = useFormStore();
+        const { personalInfo } = storeToRefs(form);
+        console.log(personalInfo);
+      },
     },
     {
       path: "/onboarding/add-ons",
