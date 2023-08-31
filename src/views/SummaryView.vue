@@ -37,7 +37,7 @@
               selectedPlan.duration ? "(Per Year)" : "(Per Month)"
             }}</span
           >
-          <span>+$12/mo</span>
+          <span>+${{ addSum + planPrice }}/mo</span>
         </p>
       </div>
     </div>
@@ -63,8 +63,10 @@
 import { useFormStore } from "../stores/form";
 
 const formStore = useFormStore();
-const { addOnsList, isCompleted, selectedPlan } = storeToRefs(formStore);
+const { addOnsList, isCompleted, selectedPlan, addSum, planPrice } =
+  storeToRefs(formStore);
 const router = useRouter();
+formStore.getSum();
 </script>
 
 <style lang="scss" scoped>

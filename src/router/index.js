@@ -26,18 +26,43 @@ const router = createRouter({
       beforeEnter: (to, from) => {
         const form = useFormStore();
         const { personalInfo } = storeToRefs(form);
-        console.log(personalInfo);
+
+        if (form.areAllKeysNotEmpty(personalInfo.value)) {
+          return true;
+        } else {
+          return false;
+        }
       },
     },
     {
       path: "/onboarding/add-ons",
       name: "add-on",
       component: () => import("../views/AddonView.vue"),
+      beforeEnter: (to, from) => {
+        const form = useFormStore();
+        const { selectedPlan } = storeToRefs(form);
+
+        if (form.areAllKeysNotEmpty(selectedPlan.value)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
     },
     {
       path: "/onboarding/summary",
       name: "summary",
       component: () => import("../views/SummaryView.vue"),
+      beforeEnter: (to, from) => {
+        const form = useFormStore();
+        const { addOnsList } = storeToRefs(form);
+
+        if (addOnsList.value.length <= 0) {
+          return false;
+        } else {
+          return true;
+        }
+      },
     },
   ],
   scrollBehavior(to, from, savedPosition) {

@@ -11,14 +11,21 @@ export const useFormStore = defineStore(
     const addOnsList = ref([]);
     const addsError = ref(null);
     const isCompleted = ref(false);
+    const addSum = ref(0);
+    const planPrice = ref(0);
 
-    const areAllKeysNotEmpty = (obj) =>
-      Object.keys(obj).every((key) => {
-        const value = obj[key];
-        return value !== undefined && value !== null && value !== "";
-      });
+    const areAllKeysNotEmpty = (obj) => {
+      if (Object.keys(obj).length === 0) {
+        return false;
+      } else {
+        return Object.keys(obj).every((key) => {
+          const value = obj[key];
+          return value !== undefined && value !== null && value !== "";
+        });
+      }
+    };
 
-    const submitPersonalInfo = async (credentials) => {
+    const submitPersonalInfo = (credentials) => {
       const { name, email, phone } = credentials;
       personalInfo.value = { name, email, phone };
 
@@ -38,6 +45,7 @@ export const useFormStore = defineStore(
           planError.value = "";
         }, 3000);
       } else {
+        // move to the next page
         router.push({ name: "add-on" });
       }
     };
@@ -67,10 +75,22 @@ export const useFormStore = defineStore(
         selectedPlan.value = { plan: "", duration: false };
         addOnsList.value = [];
         isCompleted.value = false;
-
+        sessionStorage.removeItem("form");
         // redirecting user after completion
         router.push({ name: "info" });
       }, 3000);
+    };
+
+    const getSum = () => {
+      planPrice.value = selectedPlan.value.duration
+        ? selectedPlan.value.plan.price[1]
+        : selectedPlan.value.plan.price[0];
+      addSum.value = addOnsList.value.reduce((accumulator, obj) => {
+        if (obj.hasOwnProperty("price") && typeof obj.price === "number") {
+          return accumulator + obj.price;
+        }
+        return accumulator;
+      }, 0);
     };
 
     return {
@@ -85,6 +105,9 @@ export const useFormStore = defineStore(
       isCompleted,
       finishForm,
       areAllKeysNotEmpty,
+      addSum,
+      getSum,
+      planPrice,
     };
   },
   {
